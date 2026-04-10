@@ -3,26 +3,16 @@ Author: Harshdip Girde
 """
 
 
-
 import requests 
 import json     
 import time     
 import os       
 from datetime import datetime  
 
-
-
 TOP_STORIES = https://hacker-news.firebaseio.com/v0/topstories.json
 ITEM = https://hacker-news.firebaseio.com/v0/item/{id}.json
 
-
-
-
 headers = {"User-Agent": "TrendPulse/1.0"}
-
-
-
-
 
 CATEGORIES = {
     "technology": ["ai", "software", "tech", "code", "computer", "data", "cloud", "api", "gpu", "llm"],
@@ -35,8 +25,6 @@ CATEGORIES = {
 MAX_PER_CATEGORY = 25 
 
 
-
-
 def assign_category(title):
     title_lower = title.lower()  
 
@@ -46,8 +34,6 @@ def assign_category(title):
                 return category
 
     return None
-
-
 
 def main():
     try:
@@ -63,12 +49,8 @@ def main():
 
     print("Collecting stories and categorizing...")
 
-
-  
-
     for story_id in story_ids:
 
-       
         if all(count >= MAX_PER_CATEGORY for count in category_count.values()):
             break
 
@@ -102,15 +84,9 @@ def main():
             print(f"Failed to fetch story {story_id}: {e}")
 
         time.sleep(0.2)
-
-
-
-
+    
     if not os.path.exists("data"):
         os.makedirs("data")
-
-
-   
 
     filename = f"data/trends_{datetime.now().strftime('%Y%m%d')}.json"
 
@@ -118,9 +94,6 @@ def main():
         json.dump(collected_data, f, indent=4)
 
     print(f"\nCollected {len(collected_data)} stories. Saved to {filename}")
-
-
-
 
 if __name__ == "__main__":
     main()
